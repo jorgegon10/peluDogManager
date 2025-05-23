@@ -6,7 +6,7 @@ class CajaController {
     public function getAllCompras() {
         return Caja::getAllCompras();
     }
-
+      //HOLA 2
 
     
     public function getCajaByPeluqueria($peluqueria) {
