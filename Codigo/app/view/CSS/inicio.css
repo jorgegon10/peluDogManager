@@ -1,0 +1,294 @@
+
+@keyframes fadeInUp {
+  0% {
+      transform: translateY(50px);
+      opacity: 0;
+  }
+
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;  /* oculta el scroll */
+  /* min-height: 100vh; */
+  /* width: 100vw; */
+}
+
+.content {
+  flex-grow: 1;
+  /*height: 95%;*/
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  z-index: 10;
+  top: 0px;
+}
+
+.imgFondo1 {
+  width: 100%;
+  height: 450px;
+  position: relative;
+  z-index: 2;
+  object-fit: cover; /* para que la imagen no se estire*/
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  margin-right: 15px;
+  margin-left: 10px;
+  font-size: 22px;
+}
+
+.texto1 {
+  z-index: 3;
+  color: white;
+  position: absolute;
+  text-align: center;
+  top: 200px;
+  left: 450px;
+}
+
+h1 {
+  font-size: 80px;
+  text-shadow: black 15px 0px 20px;
+}
+
+.contMateriales {
+  display: grid;
+  margin: auto;
+  width: 60%;
+  height: 200px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 2%; 
+  animation: fadeInUp 1.5s ease-out;
+  overflow: hidden;
+  margin-top: 2%;
+  border: 6px solid rgb(104, 86, 52);
+  font-family: Arial, Helvetica, sans-serif;
+  gap:5%;
+}
+
+.contMateriales:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.textoTejidos {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  flex: 1;
+  text-align: justify;
+  
+}
+
+#tejidos {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+
+
+#imagenTejidos img {
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.8s ease;
+}
+
+#imagenTejidos img:hover {
+  transform: scale(1.05);
+}
+
+
+
+#tituloTejidos {
+  text-align: center;
+}
+
+.contProductos {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  
+}
+
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2%;
+  width: 60%;
+  justify-items: center;
+  margin: 0 auto;
+  
+}
+
+.divProduc {
+  padding: 15px; 
+  border-radius: 15px;  
+  height: 50vh; 
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; 
+  text-align: center; 
+  align-items: center;
+}
+
+.divProduc:hover {
+  border-color: white;
+  transform: translateY(-10px); 
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
+}
+
+.imgProducto {
+  display: block;
+  margin: 0 auto;
+  width: 180px; 
+  height: 180px; 
+  border-radius: 10px; 
+  object-fit: cover; 
+  object-position: center; 
+  box-sizing: border-box; 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+#likes {
+  border-radius: 30px;
+  color: rgb(171, 31, 31);
+  text-align: left;
+  font-size: 15px;     
+}
+
+#precio {
+  margin-top: 5%; 
+  font-weight: bold;
+  font-size: 20px; 
+  border: 2px solid rgba(104, 86, 52); 
+  margin: auto;
+  width: 70px; 
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-radius: 20px; 
+  padding: 5px; 
+  color: #333; 
+}
+
+#nombre {
+  margin-top: 5%;
+  text-align: center;
+  font-size: 22px; 
+  font-weight: bold;
+  color: rgba(104, 86, 52); 
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); 
+}
+
+@media (max-width: 768px) {
+  .contMateriales {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 80%;
+    
+  }
+  #tejidos {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 15px;
+  }
+  .textoTejidos {
+    margin-left: 0;
+    text-align: center;
+  }
+  .texto1 {
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  h1 {
+    font-size: 60px;
+  }
+}
+@media (max-width: 480px) {
+  .logo {
+    width: 150px;
+    height: 150px;
+    top: -25px;
+  }
+  .imgFondo1 {
+    height: 300px;
+  }
+  .texto1 {
+    top: 120px;
+    font-size: 20px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  h1 {
+    font-size: 40px;
+  }
+  .contMateriales {
+    width: 95%;
+    padding: 5px;
+    border: 2px solid rgb(104, 86, 52);
+    
+  }
+  #tejidos {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+  }
+  .textoTejidos {
+    font-size: 12px;
+    text-align: justify;
+  }
+ 
+
+  h1{
+    font-size: 30px;
+  }
+
+
+}
+
+#h2Populares {
+  background-color: rgb(104, 86, 52);
+  color: white;
+  border-radius: 20px;
+  width: 50%;
+  text-align: center;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+#imagenTejidos img:hover {
+  transform: scale(1.05);
+}
+.divProduc:hover {
+cursor: pointer;
+
+}
+
+

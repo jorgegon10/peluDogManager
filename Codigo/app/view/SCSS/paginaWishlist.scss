@@ -1,0 +1,106 @@
+@use "../SCSS/variables.scss" as *;
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.topProductos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tarjetaProducto {
+    font-size: 20px;
+    background-color: $colorTranparencia;
+    border-radius: 10px;
+    width: 20%;
+    padding: 10px;
+    color: $blanco;
+    text-align: center;
+    border: 6px solid $colorPrimario;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
+    text-shadow: 0 0 2px $negro;
+
+}
+
+.tarjetaProducto:hover {
+    background-color: rgba(31, 26, 16, 0.647);
+}
+
+.imgProductos {
+    width: 100%;
+    max-width: 190px;
+    max-height: 190px;
+    height: 100%;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.accionesProducto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.accionesProducto button {
+    padding: 6px 12px;
+    font-size: 12px;
+    color: $blanco;
+    background-color: rgb(255, 49, 49);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.accionesProducto .btnGuardar {
+    background-color: #41b145;
+}
+
+
+@media (max-width: 768px) {
+    .topProductos {
+        justify-content: center;
+    }
+
+    .tarjetaProducto {
+        width: 40%;
+    }
+
+    .accionesProducto {
+        position: static;
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .accionesProducto button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tarjetaProducto {
+        width: 80%;
+    }
+}

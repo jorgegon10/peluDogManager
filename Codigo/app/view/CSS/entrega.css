@@ -1,0 +1,70 @@
+.body{
+    margin:0;
+}
+
+
+.div1 {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 50%;
+    max-width: 600px;
+    margin:auto;
+    margin-top: 1%;
+}
+
+.imgEnviado{
+    width: 100px;
+    height: 100px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.divProduc {
+    padding: 15px;
+    border-radius: 15px;
+    height: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: fit-content;
+    margin:auto;
+}
+
+
+.divProduc:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.imgProducto {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#nombre {
+    font-size: 22px;
+    font-weight: bold;
+    color: #685634;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+}

@@ -1,0 +1,75 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+.contProductos {
+    display: flex;
+    justify-content: center;
+    padding: 30px; 
+    border-radius: 10px; 
+   
+}
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2%;
+    width: 100%; 
+    padding: 20px; 
+    justify-items: center;
+}
+
+.divProduc {
+    padding: 15px; 
+    border-radius: 15px; 
+    height: 50vh; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; 
+    text-align: center; 
+}
+
+.divProduc:hover {
+    border-color: white;
+    transform: translateY(-10px); 
+  
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
+}
+
+.imgProducto {
+    display: block;
+    margin: 0 auto;
+    width: 180px; 
+    height: 180px; 
+    border-radius: 10px; 
+    object-fit: cover; 
+    object-position: center; 
+    box-sizing: border-box; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+#nombre {
+    margin-top: 5%;
+    text-align: center;
+    font-size: 22px; 
+    font-weight: bold;
+    color: rgba(104, 86, 52); 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); 
+}
+
+.busqueda-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.busqueda-input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid;
+    border-radius: 25px;
+    margin-right: 10px;
+}

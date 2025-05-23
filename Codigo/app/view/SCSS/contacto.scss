@@ -1,0 +1,102 @@
+@use "../SCSS/variables.scss" as *;
+
+body {
+    height: 100vh;
+}
+
+
+.content {
+
+    display: flex;
+    flex-grow: 1;
+
+
+}
+
+.content2 {
+
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+
+}
+
+.textos {
+    text-align: center;
+    flex: 1;
+    max-width: 400px;
+}
+
+.boton {
+    margin: 10px 0;
+    padding: 10px 20px;
+    border-radius: 17px;
+    background-color: $colorPrimario;
+    color: $blanco;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.texto1,
+.texto2 {
+    width: 100%;
+    max-width: 380px;
+    border: solid 2px $negro;
+    box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.3);
+    resize: none;
+    margin-bottom: 15px;
+}
+
+.texto1 {
+    height: 40px;
+}
+
+.texto2 {
+    height: 150px;
+}
+
+.info {
+    text-align: left;
+    padding-left: 50px;
+    flex: 1;
+    font-size: 20px;
+    font-weight: 500;
+    max-width: 300px;
+}
+
+.info p {
+    margin: 20px 0;
+}
+
+
+@media (max-width: 768px) {
+
+    .info {
+
+        padding-left: 10px;
+
+    }
+
+    .info p {
+        margin: 20px 0;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .content2 {
+
+        display: block;
+
+
+    }
+
+}

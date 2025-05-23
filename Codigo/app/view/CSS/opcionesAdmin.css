@@ -1,0 +1,81 @@
+.pestaña{
+    
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 900px;
+    max-width: 600px;
+    margin: auto;
+    
+   
+
+
+}
+.nuevoPerro{
+    
+display: grid;
+  grid-template-columns: repeat(3,1fr); /* Por defecto, 1 columna */
+  gap: 15px; /* Espacio entre los campos */
+  max-width: 900px; /* Evita que el formulario sea demasiado ancho */
+  width: 100%;
+  margin: auto;
+  
+
+} 
+
+form {
+
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+   /* justify-content: center;
+    min-height: 100vh;  */
+    padding-left: 100px;
+
+}
+
+
+h1 {
+
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 50px;
+
+}
+
+input {
+
+    font-size: 17px;
+    margin-bottom: 15px;
+
+}
+
+
+input[type="submit"] {
+    padding: 4px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: auto;
+
+} 
+
+
+
+@media (max-width: 480px) {
+
+    div {
+    
+    display: block;
+    text-align: center;
+    margin: 0;
+    
+    } 
+
+    form {
+
+        padding-left: 0px;
+    
+    }
+
+}
