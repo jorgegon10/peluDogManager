@@ -143,6 +143,18 @@ private $peluqueria;
         }
     }
 
+    public function deleteCajaByPeluqueria($peluqueria)
+    {
+        try {
+            $conn = getDBConnection();
+            $sentencia = $conn->prepare("DELETE FROM caja WHERE peluqueria = ?");
+            $sentencia->bindParam(1, $peluqueria);
+            $sentencia->execute();
+        } catch (PDOException $e) {
+            echo "Error al eliminar la compra: " . $e->getMessage();
+        }
+    }
+
 
 
 }

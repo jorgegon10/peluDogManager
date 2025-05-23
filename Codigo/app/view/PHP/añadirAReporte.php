@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar_reporte_dia']
         $resultado = $reporteController->crearReporte($numero_compras,$total_precio,$fecha_actual,   $peluqueria);
         
        
+         $caja->deleteCajaByPeluqueria($peluqueria);
                 // Redirige a la página de éxito o muestra un mensaje
                 header("Location: reporteDiaView.php");
                 exit();
