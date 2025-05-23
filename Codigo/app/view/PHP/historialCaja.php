@@ -1,45 +1,25 @@
 <?php
 require_once(__DIR__ . '/../../../rutas.php');
 require_once(CONTROLLER . 'ProductoController.php');
+require_once(CONTROLLER . 'reporteDiaController.php');
+
 require_once(MODEL . 'Caja.php');
-$compras= new Caja();
+
+$compras = new Caja();
 session_start();
 
-// Si el usuario está logueado
-if (isset($_SESSION['nombre_usuario'])) {
-    $nombre_usuario = $_SESSION['nombre_usuario'];
-} else {
-    $nombre_usuario = null;
-}
+// Usuario logueado
+$nombre_usuario = $_SESSION['nombre_usuario'] ?? null;
 
-// Comprobamos si hay búsqueda
-// $busqueda = null;
-// if (isset($_GET['busqueda'])) {
-//     $busqueda = $_GET['busqueda'];
-//     // Si hay búsqueda, filtramos por nombre
-//     $productos = $productController->getProductsByName($busqueda);
-// } else {
-//     // Si no hay búsqueda, mostramos todos los productos
-//     $productos = $productController->getAllProducts();
-// }
+// Peluquería activa
+$peluqueria = $_SESSION['peluqueria'] ?? null;
 
-// // Comprobamos si se ha seleccionado un deporte
-// $deporte = null;
-// if (isset($_POST['deporte']) && !empty($_POST['deporte'])) {
-//     $deporte = $_POST['deporte'];  // Si hay deporte seleccionado, filtramos por deporte
-// }
-
-// Si hay un deporte seleccionado, filtramos los productos por deporte
-// if ($deporte) {
+// Obtener compras
+$compras = $compras->getCajaByPeluqueria($peluqueria);
 
 
-if (isset($_SESSION['peluqueria'])) {
-    $peluqueria = $_SESSION['peluqueria'];
-} else {
-    $peluqueria= null;
-}
-    $compras = $compras->getCajaByPeluqueria($peluqueria);
-// }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +38,7 @@ if (isset($_SESSION['peluqueria'])) {
 
     <!-- Formulario de búsqueda de productos -->
     <form method="GET" action="" class="busqueda-form">
-        <input type="text" PLACEHOLDER="Buscar un producto..." name="busqueda"
+        <input type="text" placeholder="Buscar un producto..." name="busqueda"
             value="<?php if (isset($busqueda)) echo htmlspecialchars($busqueda); ?>"
             class="busqueda-input">
     </form>
@@ -72,27 +52,29 @@ if (isset($_SESSION['peluqueria'])) {
                 <h2>Precio</h2>
                 <h2>Fecha Compra</h2>
             </div>
-            <?php
-            if ($compras) {
-                foreach ($compras as $compra) { ?>
+            <?php if ($compras): ?>
+                <?php foreach ($compras as $compra): ?>
                     <form class="formProducto" action="productodetalle.php" method="GET">
                         <div class="divProduc" onclick="this.closest('form').submit()">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($compra['id_compra']) ?>">
-                           
                             <h3 id="nombre"><?= htmlspecialchars($compra['nombre_compra']) ?></h3>
                             <p id="precio"><?= htmlspecialchars($compra['formaPago']) ?></p>
                             <p id="precio"><?= htmlspecialchars($compra['precio_compra']) ?>€</p>
                             <p id="precio"><?= htmlspecialchars($compra['fecha_compra']) ?></p>
-
                         </div>
                     </form>
-                <?php }
-            } else { ?>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <p>No se han encontrado productos.</p>
-            <?php } ?>
+            <?php endif; ?>
         </div>
-    </div>
 
+        <form method="POST" action="añadirAReporte.php"> 
+            <input type="hidden" name="guardar_reporte_dia" value="1">
+            <button type="submit" class="guardar-btn">Guardar reporte del día</button>
+        </form>
+
+    </div>
 
 </body>
 
