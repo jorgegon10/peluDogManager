@@ -7,6 +7,8 @@ class CajaController {
         return Caja::getAllCompras();
     }
 
+
+    //hola
     public function getCajaByPeluqueria($peluqueria) {
         return Caja::getCajaByPeluqueria($peluqueria);
     }
