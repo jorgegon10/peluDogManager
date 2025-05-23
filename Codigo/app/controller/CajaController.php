@@ -8,7 +8,7 @@ class CajaController {
     }
 
 
-    //hola
+    
     public function getCajaByPeluqueria($peluqueria) {
         return Caja::getCajaByPeluqueria($peluqueria);
     }
