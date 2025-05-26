@@ -14,7 +14,6 @@ if (isset($_SESSION['nombre_usuario'])) {
     $nombre_usuario = $_SESSION['nombre_usuario'];
     
 } else {
-
    
     header("Location: login.php");
     exit();
@@ -67,7 +66,7 @@ $_SESSION['peluqueria'] = $peluqueria;
                 </button>
             </form>
             
-            <form action="inventario.php" method="GET">
+            <form action="inventarioView.php" method="GET">
                 <button class="btn" type="submit">
                     <i class="fas fa-box"></i>
                     Inventario
