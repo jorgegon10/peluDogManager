@@ -73,7 +73,7 @@ $_SESSION['peluqueria'] = $peluqueria;
                 </button>
             </form>
             
-            <form action="opcionesAdmin.php" method="GET">
+            <form action="nuevoClienteView.php" method="GET">
                 <button class="btn" type="submit">
                 <i class="fas fa-user-plus"></i>
                 Nuevo Cliente
@@ -94,14 +94,21 @@ $_SESSION['peluqueria'] = $peluqueria;
                 </button>
             </form>
             
-           
-            <button class="btn" type="submit">
-                <i class="fas fa-plus"></i>
-                Añadir a Inventario
-            </button>
+           <form action="añadirInventario.php" method="GET">
+                <button class="btn" type="submit">
+                    <i class="fas fa-plus"></i>
+                    Añadir Inventario
+                </button>
+            </form>
+            
+
+
             
         </div>
     </div>
+
+    
+
     
 </body>
 </html>

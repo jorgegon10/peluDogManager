@@ -35,12 +35,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $raza = htmlspecialchars($_POST["raza"]);
 
 
-
-            if (filter_var($precio, FILTER_VALIDATE_FLOAT)) {
+            try{
+                if (filter_var($precio, FILTER_VALIDATE_FLOAT)) {
                 $productController->crearProducto($nombrePerro, $precio, $descripcion, $peluqueria, $visitas, $imagen , $telefono, $raza);
+                }
+             } catch (Exception $e) {
+                echo "<h3>Error al crear el producto</h3>";
+                echo "<p>" . $e->getMessage() . "</p>";
+                exit();
+
             }
+
+            
         }
-        header("Location: opcionesAdmin.php");
+        header("Location: nuevoClienteView.php");
         exit();
     }
 
@@ -67,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     
     <div class="pestaña" >
-        <form action="opcionesAdmin.php" method="POST">
+        <form action="nuevoClienteView.php" method="POST">
 
         
         <input type="hidden" name="formCreate" value="crearProducto">
@@ -91,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <textarea name="descripcion" class="form-control mb-3" placeholder="Descripción" required></textarea>
             </div>           
             <div>
-                <!-- Aquí ya damos por defecto la peluqueria que tenemos guardada en la sesión -->
+                <!-- Aquí ya damos por defecto la peluqueria que tenemos guardada en la sesión  y no se puede modificar -->
                 <b>Peluqueria:</b>
                 <input type="text" name="peluqueria" class="form-control mb-3"  value="<?= htmlspecialchars($_SESSION['peluqueria']) ?>" readonly>
             </div>           

@@ -81,6 +81,15 @@ $_SESSION['peluqueria'] = $peluqueria;
                 </button>
             </form>
 
+            <form action="reporteDiaView.php" method="GET">
+                <button class="btn" type="submit">
+                    <i class="fas fa-box"></i>
+                 Reportes diarios 
+                </button>
+            </form>
+
+
+
            
             
         </div>
