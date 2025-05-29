@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .formulario button {
-            background: #28a745;
+            background: #654321;
             color: #fff;
             border: none;
             padding: 12px;
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form action="" method="POST">
         <input type="text" name="nombre_objeto" placeholder="Nombre del objeto" required>
         <input type="number" name="cantidad" placeholder="Cantidad" required>
-        <input type="text" name="peluqueria" placeholder="Peluquería" required>
+        <input type="text" name="peluqueria" class="form-control mb-3"  value="<?= htmlspecialchars($_SESSION['peluqueria']) ?>" readonly>
         <input type="number" step="0.01" name="precio" placeholder="Precio" required>
         <input type="text" name="imagen" placeholder="Imagen (URL o nombre archivo)">
         <button type="submit">Agregar Objeto</button>

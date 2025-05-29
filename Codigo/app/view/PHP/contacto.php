@@ -30,8 +30,8 @@ $nombre_usuario = $_SESSION['nombre_usuario'] ?? null;
 
             <div class="info">
                 <p>📍 RÚA MONASTEIRO DE CAAVEIRO, 1, 15010, A CORUÑA</p>
-                <p>✉ NOSASPORTS@STORE.COM</p>
-                <p>📞 654475315</p>
+                <p>✉ CONTACTO@PELUDOG.COM</p>
+                <p>📞 633928567</p>
             </div>
         </div>
         

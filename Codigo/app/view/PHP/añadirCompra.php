@@ -56,14 +56,9 @@ if (isset($_SESSION['peluqueria'])) {
 
     <?php include "../Generales/nav.php" ?>
 
-    <!-- Formulario de búsqueda de productos -->
-    <form method="GET" action="" class="busqueda-form">
-        <input type="text" PLACEHOLDER="Buscar un producto..." name="busqueda"
-            value="<?php if (isset($busqueda)) echo htmlspecialchars($busqueda); ?>"
-            class="busqueda-input">
-    </form>
+    
 
-    <!-- Productos filtrados por deporte o búsqueda -->
+    
     <div class="contProductos">
         <div class="productos">
             <div class="cabecera">

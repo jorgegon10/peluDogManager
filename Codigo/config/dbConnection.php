@@ -3,7 +3,7 @@
 function getDBConnection()
 {
     $host = "localhost";
-    $db_name = 'NosaSports';
+    $db_name = 'PeluDog';
     $username = "root";
     $password = "";
 

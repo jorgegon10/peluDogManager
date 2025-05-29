@@ -4,133 +4,127 @@ require_once(CONTROLLER . 'ProductoController.php');
 require_once(MODEL . 'Producto.php');
 
 session_start();
-if (isset($_SESSION['nombre_usuario'])) {
-    $nombre_usuario = $_SESSION['nombre_usuario'];
-} else {
-    $nombre_usuario = null;
-}
+$nombre_usuario = $_SESSION['nombre_usuario'] ?? null;
 
-// Verificar si el usuario es admin
-// if (!isset($_SESSION['nombre_usuario']) || $_SESSION['nombre_usuario'] !== 'admin') {
-//     echo "<h3>Acceso denegado</h3>";
-//     echo "<p>No tienes permisos de admin.</p>";
-//     echo "<p><a href='inicio.php'><button>Volver a inicio</button></a></p>";
-//     exit();
-// }
+$mensaje = "";
 
-$productController = new ProductoController();
-$productos = $productController->getAllProducts();
+// Inicializar variables para mantener valores tras errores
+$nombrePerro = $descripcion = $peluqueria = $visitas = $precio = $imagen = $telefono = $raza = "";
 
-// Crear producto
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['formCreate']) && $_POST['formCreate'] == 'crearProducto') {
-        if (!empty($_POST["nombrePerro"]) && !empty($_POST["descripcion"]) && !empty($_POST["peluqueria"]) && is_numeric($_POST["visitas"])) {
-            $nombrePerro = htmlspecialchars($_POST["nombrePerro"]);
-            $descripcion = htmlspecialchars($_POST["descripcion"]);
-            $peluqueria = htmlspecialchars($_POST["peluqueria"]);
-            $visitas = htmlspecialchars($_POST["visitas"]);
-            $precio = htmlspecialchars($_POST["precio"]);
-            $imagen = htmlspecialchars($_POST["imagen"]);
-            $telefono = htmlspecialchars($_POST["telefono"]);
-            $raza = htmlspecialchars($_POST["raza"]);
+    $nombrePerro = $_POST['nombrePerro'] ?? '';
+    $descripcion = $_POST['descripcion'] ?? '';
+    $peluqueria = $_POST['peluqueria'] ?? '';
+    $visitas = $_POST['visitas'] ?? '';
+    $precio = $_POST['precio'] ?? '';
+    $imagen = $_POST['imagen'] ?? '';
+    $telefono = $_POST['telefono'] ?? '';
+    $raza = $_POST['raza'] ?? '';
 
-
-            try{
-                if (filter_var($precio, FILTER_VALIDATE_FLOAT)) {
-                $productController->crearProducto($nombrePerro, $precio, $descripcion, $peluqueria, $visitas, $imagen , $telefono, $raza);
-                }
-             } catch (Exception $e) {
-                echo "<h3>Error al crear el producto</h3>";
-                echo "<p>" . $e->getMessage() . "</p>";
-                exit();
-
-            }
-
-            
+    if (!preg_match('/^\d{9}$/', $telefono)) {
+        $mensaje = "❌ El número de teléfono debe tener exactamente 9 dígitos.";
+    } elseif (
+        $nombrePerro && $descripcion && $peluqueria &&
+        is_numeric($visitas) && is_numeric($precio) &&
+        $imagen && $telefono && $raza
+    ) {
+        try {
+            $controller = new ProductoController();
+            $controller->crearProducto($nombrePerro, $precio, $descripcion, $peluqueria, $visitas, $imagen, $telefono, $raza);
+            $mensaje = "✅ Perro añadido con éxito.";
+            // Limpiar campos tras éxito
+            $nombrePerro = $descripcion = $visitas = $precio = $imagen = $telefono = $raza = "";
+        } catch (Exception $e) {
+            $mensaje = "❌ Error al crear el producto: " . $e->getMessage();
         }
-        header("Location: nuevoClienteView.php");
-        exit();
+    } else {
+        $mensaje = "❌ Por favor, completa todos los campos correctamente.";
     }
-
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Perro</title>
-    <link rel="stylesheet" href="../CSS/opcionesAdmin.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Agregar Perro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 30px;
+        }
+
+        .formulario {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .formulario h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .formulario input, .formulario textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .formulario button {
+            background: #654321;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .mensaje {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
 </head>
-
 <body>
-    <?php include "../Generales/nav.php"; ?>
 
-    <h1>Nuevo Perro</h1>
+<div class="formulario">
+    <h2>Agregar Nuevo Perro</h2>
 
-    
-    <div class="pestaña" >
-        <form action="nuevoClienteView.php" method="POST">
-
-        
-        <input type="hidden" name="formCreate" value="crearProducto">
-        <div class="nuevoPerro">
-            
-
-            <div>
-
-                <b>Nombre:</b>
-                <input type="text" name="nombrePerro"  class="form-control mb-3" placeholder="Nombre Perro" required>
-
-            </div>
-                
-            <div>
-                <b>Precio:</b>
-                <input type="number" step="0.01" name="precio"  class="form-control mb-3"  placeholder="Precio"  required>
-            </div>
-                
-            <div>
-                <b>Descripcion:</b>
-                <textarea name="descripcion" class="form-control mb-3" placeholder="Descripción" required></textarea>
-            </div>           
-            <div>
-                <!-- Aquí ya damos por defecto la peluqueria que tenemos guardada en la sesión  y no se puede modificar -->
-                <b>Peluqueria:</b>
-                <input type="text" name="peluqueria" class="form-control mb-3"  value="<?= htmlspecialchars($_SESSION['peluqueria']) ?>" readonly>
-            </div>           
-            <div>
-                <b>Visitas:</b>
-                <input type="number" name="visitas" class="form-control mb-3" placeholder="Visitas" required>
-            </div>    
-            <div>
-                <b>Imagen:</b>
-                <input type="text" name="imagen" class="form-control mb-3" placeholder="Imagen" required>
-            </div>
-            <div>
-                <b>Teléfono:</b>
-                <input type="number"  name="telefono" class="form-control mb-3" placeholder="Teléfono" required>
-            </div>
-                
-            <div>
-                <b>Raza:</b>
-                <input type="text" name="raza" class="form-control mb-3" placeholder="Raza" required>
-            </div>
-            
+    <?php if (!empty($mensaje)): ?>
+        <div class="mensaje <?= strpos($mensaje, '❌') !== false ? 'error' : '' ?>">
+            <?= htmlspecialchars($mensaje) ?>
         </div>
-            
-            
+    <?php endif; ?>
 
+    <form method="POST">
+        <input type="text" name="nombrePerro" placeholder="Nombre del perro" value="<?= htmlspecialchars($nombrePerro) ?>" required>
+        <input type="number" step="0.01" name="precio" placeholder="Precio" value="<?= htmlspecialchars($precio) ?>" required>
+        <textarea name="descripcion" placeholder="Descripción" required><?= htmlspecialchars($descripcion) ?></textarea>
+        <input type="text" name="peluqueria" value="<?= htmlspecialchars($_SESSION['peluqueria']) ?>" readonly>
+        <input type="number" name="visitas" placeholder="Visitas" value="<?= htmlspecialchars($visitas) ?>" required>
+        <input type="text" name="imagen" placeholder="Imagen (URL o nombre archivo)" value="<?= htmlspecialchars($imagen) ?>" required>
+        <input type="text" name="telefono" placeholder="Teléfono (9 dígitos)" value="<?= htmlspecialchars($telefono) ?>" required>
+        <input type="text" name="raza" placeholder="Raza" value="<?= htmlspecialchars($raza) ?>" required>
+        <button type="submit">Agregar Perro</button>
+    </form>
+</div>
 
-            <input type="submit" value="Guardar" style="background-color: rgb(104,86,52); color: white" class="nuevo">
-        </form>
+<a href="negocio.php">
+        <?php include "botonAtras.php" ?>
+</a>
 
-        
-    </div>
 </body>
-
 </html>

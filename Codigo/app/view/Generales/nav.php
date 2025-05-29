@@ -121,7 +121,7 @@ a img {
             }
         } else {
             ?>
-            <a href="login.php">Iniciar sesión</a>
+            
         <?php
         }
         ?>
@@ -136,10 +136,10 @@ a img {
         <img src="../Img/icons8-producto-50.png" alt="Productos">
         <span>Servicios</span>
     </a> -->
-    <a href="../PHP/paginaWishlist.php">
+    <!-- <a href="../PHP/paginaWishlist.php">
         <img src="../Img/icons8-estrella-50.png" alt="Deseados">
         <span>Precios</span>
-    </a>
+    </a> -->
     <a href="../PHP/contacto.php">
         <img src="../Img/icons8-teléfono-50.png" alt="Contactanos">
         <span>Contactanos</span>
