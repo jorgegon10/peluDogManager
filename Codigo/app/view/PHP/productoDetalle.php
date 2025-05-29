@@ -3,7 +3,6 @@ require_once(__DIR__ . '/../../../rutas.php');
 require_once(CONTROLLER . 'ProductoController.php');
 require_once(CONTROLLER . 'PedidoController.php');
 require_once(MODEL . 'Producto.php');
-require_once(CONTROLLER . 'ReseñaController.php');
 require_once(CONTROLLER . 'UsuarioController.php');
 require_once(MODEL . 'Usuario.php');
 

@@ -67,10 +67,12 @@ if (isset($_SESSION['peluqueria'])) {
 
     <?php include "../Generales/nav.php" ?>
 
-    <button id="añadir" class="btn" style="display: none;"> 
-                <i class="fas fa-user-plus"></i>
-                Añadir Empleado
-                </button>
+    <!-- Elimina style="display: none;" si no es necesario -->
+<a href="añadirEmpleado.php" id="añadir" class="btn" display="none">
+    <i class="fas fa-user-plus"></i>
+    Añadir Empleado
+</a>
+
     
 
     <!-- Formulario de búsqueda de productos -->

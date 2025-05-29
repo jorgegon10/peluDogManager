@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($nombre_compra && $precio_compra && $peluqueria) {
         $controller = new CajaController();
         $controller->crearCaja($nombre_compra, $formaPago, $precio_compra, $fecha_compra, $peluqueria);
-        header('Location: historialCaja.php'); // Redirige a la vista de caja o historial
+        header('Location: historialCaja.php'); 
         exit;
     } else {
         echo "Faltan datos obligatorios.";

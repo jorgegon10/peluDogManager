@@ -12,25 +12,15 @@ if (isset($_SESSION['nombre_usuario'])) {
     $nombre_usuario = null;
 }
 
-// Comprobamos si hay búsqueda
-$busqueda = null;
-if (isset($_GET['busqueda'])) {
-    $busqueda = $_GET['busqueda'];
-    // Si hay búsqueda, filtramos por nombre
-    $productos = $productController->getProductsByName($busqueda);
-} else {
+
     // Si no hay búsqueda, mostramos todos los productos
     $productos = $productController->getAllProducts();
-}
 
-// Comprobamos si se ha seleccionado un deporte
-$deporte = null;
-if (isset($_POST['deporte']) && !empty($_POST['deporte'])) {
-    $deporte = $_POST['deporte'];  // Si hay deporte seleccionado, filtramos por deporte
-}
 
-// Si hay un deporte seleccionado, filtramos los productos por deporte
-// if ($deporte) {
+
+
+
+
 
 
 if (isset($_SESSION['peluqueria'])) {
@@ -56,12 +46,7 @@ if (isset($_SESSION['peluqueria'])) {
 
     <?php include "../Generales/nav.php" ?>
 
-    <!-- Formulario de búsqueda de productos -->
-    <form method="GET" action="" class="busqueda-form">
-        <input type="text" PLACEHOLDER="Buscar un producto..." name="busqueda"
-            value="<?php if (isset($busqueda)) echo htmlspecialchars($busqueda); ?>"
-            class="busqueda-input">
-    </form>
+   
 
     <!-- Productos filtrados por deporte o búsqueda -->
     <div class="contProductos">

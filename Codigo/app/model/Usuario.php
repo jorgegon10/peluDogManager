@@ -228,28 +228,30 @@ class Usuario
         }
     }
 
-    public function create()
-    {
-        try {
-            $conn = getDBConnection();
-            $sentencia = $conn->prepare("INSERT INTO usuario (nombre_usuario, correo, nombre, apellido1, apellido2, contraseña, direccion, peluqueria, puesto, administrador, activo) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-            $sentencia->bindParam(1, $this->nombre_usuario);
-            $sentencia->bindParam(2, $this->correo);
-            $sentencia->bindParam(3, $this->nombre);
-            $sentencia->bindParam(4, $this->apellido1);
-            $sentencia->bindParam(5, $this->apellido2);
-            $sentencia->bindParam(6, $this->contraseña);
-            $sentencia->bindParam(7, $this->direccion);
-            $sentencia->bindParam(8, $this->peluqueria);
-            $sentencia->bindParam(9, $this->puesto);
-            $sentencia->bindParam(10, $this->administrador);
-            $sentencia->bindParam(11, $this->activo);
+   public function create()
+{
+    try {
+        $conn = getDBConnection();
+        $sentencia = $conn->prepare("INSERT INTO usuario (nombre_usuario, correo, nombre, apellido1, apellido2, imagen, contraseña, direccion, peluqueria, puesto, administrador, activo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+        $sentencia->bindParam(1, $this->nombre_usuario);
+        $sentencia->bindParam(2, $this->correo);
+        $sentencia->bindParam(3, $this->nombre);
+        $sentencia->bindParam(4, $this->apellido1);
+        $sentencia->bindParam(5, $this->apellido2);
+        $sentencia->bindParam(6, $this->imagen);          
+        $sentencia->bindParam(7, $this->contraseña);
+        $sentencia->bindParam(8, $this->direccion);
+        $sentencia->bindParam(9, $this->peluqueria);
+        $sentencia->bindParam(10, $this->puesto);
+        $sentencia->bindParam(11, $this->administrador);
+        $sentencia->bindParam(12, $this->activo);
 
-            $sentencia->execute();
-        } catch (PDOException $e) {
-            echo "Error en la conexión a base de datos: " . $e->getMessage();
-        }
+        $sentencia->execute();
+    } catch (PDOException $e) {
+        echo "Error en la conexión a base de datos: " . $e->getMessage();
     }
+}
+
 
     public function updateUser()
     {

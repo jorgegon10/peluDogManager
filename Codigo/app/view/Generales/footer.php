@@ -31,6 +31,6 @@
         }
     </style>
 <body>
-<footer>2024 COPYRIGHT© - NOSA SPORTS</footer>
+<footer>2025 COPYRIGHT© - PELUDOG MANAGER </footer>
 </body>
 </html>
