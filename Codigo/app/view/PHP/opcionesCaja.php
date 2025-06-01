@@ -30,6 +30,8 @@ if (isset($_SESSION['nombre_usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión Empresarial</title>
     <link rel="stylesheet" href="../CSS/negocio.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
 <?php include "../Generales/nav.php" ?>
@@ -60,6 +62,12 @@ $_SESSION['peluqueria'] = $peluqueria;
                 Añadir Compra
                 </button>
             </form>
+            <form action="configurarNuevaCompra.php" method="GET">
+                <button class="btn" type="submit">
+                <i class="fas fa-plus"></i>
+                Configurar Nueva Compra
+                </button>
+            </form>
             <form action="historialCaja.php" method="GET">
                 <button class="btn" type="submit">
                     <i class="fas fa-box"></i>
@@ -74,10 +82,10 @@ $_SESSION['peluqueria'] = $peluqueria;
                 </button>
             </form>
             
-            <form action="opcionesAdmin.php" method="GET">
+            <form action="estadisticasReporteView.php" method="GET">
                 <button class="btn" type="submit">
-                <i class="fas fa-user-plus"></i>
-                 Sacar Faptura 
+                <i class="fa-solid fa-chart-line"></i>
+                Estadísticas Caja
                 </button>
             </form>
 
@@ -94,6 +102,10 @@ $_SESSION['peluqueria'] = $peluqueria;
             
         </div>
     </div>
+
+    <a href="negocio.php">
+    <?php include "botonAtras.php" ?>
+    </a>
    
 </body>
 </html>

@@ -75,6 +75,10 @@ $compras = $compras->getCajaByPeluqueria($peluqueria);
         </form>
 
     </div>
+    <a href="opcionesCaja.php">
+    <?php include "botonAtras.php" ?>
+    </a>
+
 
 </body>
 

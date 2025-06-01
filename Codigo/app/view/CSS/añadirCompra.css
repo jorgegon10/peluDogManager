@@ -1,0 +1,120 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+.contProductos {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.productos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    max-width: 1000px;
+    padding: 20px;
+    position: relative;
+}
+
+.divProduc select,
+.divProduc button {
+    padding: 5px;
+    border-radius: 4px;
+}
+
+
+#cab1, #cab2, #cab3 {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+    width: 33.3%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+    padding: 10px 25px;
+    background-color: #eee;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.cabecera h2 {
+    width: 33.3%;
+    margin: 0;
+    text-align: left;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+
+.productos > h2 {
+    margin-bottom: 10px;
+}
+
+.productos > h2:nth-child(1) {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.productos > h2:nth-child(2),
+.productos > h2:nth-child(3) {
+    margin-top: -32px; 
+}
+
+.divProduc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.divProduc:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+#nombre, #precio {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    width: 33.3%;
+    text-align: left;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#nombre {
+    color: rgba(104, 86, 52);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.busqueda-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.busqueda-input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid;
+    border-radius: 25px;
+    margin-right: 10px;
+}

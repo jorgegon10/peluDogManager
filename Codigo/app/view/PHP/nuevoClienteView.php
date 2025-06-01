@@ -29,8 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagen && $telefono && $raza
     ) {
         try {
+            // Añadir fecha al final de la descripción con salto de línea
+            $fecha = date('d/m/Y');
+            $descripcionConFecha = $descripcion . "\n" . "[$fecha]";
+
             $controller = new ProductoController();
-            $controller->crearProducto($nombrePerro, $precio, $descripcion, $peluqueria, $visitas, $imagen, $telefono, $raza);
+            $controller->crearProducto($nombrePerro, $precio, $descripcionConFecha, $peluqueria, $visitas, $imagen, $telefono, $raza);
             $mensaje = "✅ Perro añadido con éxito.";
             // Limpiar campos tras éxito
             $nombrePerro = $descripcion = $visitas = $precio = $imagen = $telefono = $raza = "";
@@ -113,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="nombrePerro" placeholder="Nombre del perro" value="<?= htmlspecialchars($nombrePerro) ?>" required>
         <input type="number" step="0.01" name="precio" placeholder="Precio" value="<?= htmlspecialchars($precio) ?>" required>
         <textarea name="descripcion" placeholder="Descripción" required><?= htmlspecialchars($descripcion) ?></textarea>
-        <input type="text" name="peluqueria" value="<?= htmlspecialchars($_SESSION['peluqueria']) ?>" readonly>
+        <input type="text" name="peluqueria" value="<?= htmlspecialchars($_SESSION['peluqueria'] ?? '') ?>" readonly>
         <input type="number" name="visitas" placeholder="Visitas" value="<?= htmlspecialchars($visitas) ?>" required>
         <input type="text" name="imagen" placeholder="Imagen (URL o nombre archivo)" value="<?= htmlspecialchars($imagen) ?>" required>
         <input type="text" name="telefono" placeholder="Teléfono (9 dígitos)" value="<?= htmlspecialchars($telefono) ?>" required>
@@ -122,8 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
-<a href="negocio.php">
-        <?php include "botonAtras.php" ?>
+<a href="listaPerros.php">
+    <?php include "botonAtras.php" ?>
 </a>
 
 </body>

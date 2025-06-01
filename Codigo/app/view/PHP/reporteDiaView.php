@@ -58,7 +58,7 @@ if (isset($_SESSION['peluqueria'])) {
             <?php
             if ($reportes) {
                 foreach ($reportes as $reporte) { ?>
-                    <form class="formProducto" action="productodetalle.php" method="GET">
+                    <form class="formProducto" action="" method="GET">
                         <div class="divProduc" onclick="this.closest('form').submit()">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($reporte['id_reporte']) ?>">
 
@@ -77,6 +77,11 @@ if (isset($_SESSION['peluqueria'])) {
             <?php } ?>
         </div>
     </div>
+
+    <a href="opcionesCaja.php">
+    <?php include "botonAtras.php" ?>
+    </a>
+
 
 
 </body>

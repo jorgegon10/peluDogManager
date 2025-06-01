@@ -70,6 +70,14 @@ if (isset($_SESSION['peluqueria'])) {
         </div>
     </div>
 
+    <a href="negocio.php">
+    <?php include "botonAtras.php" ?>
+    </a>
+
+    
+    <a href="nuevoClienteView.php" class="boton-flotante">+</a>
+
+
 
 </body>
 

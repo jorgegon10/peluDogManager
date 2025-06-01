@@ -13,6 +13,8 @@ class ObjetoController {
         return Objeto::getObjetoByName($nombre_objeto);
     }
 
+    
+
     public function crearObjeto($nombre_objeto, $cantidad, $peluqueria, $precio, $imagen) {
         $nuevoObjeto = new Objeto();
         $nuevoObjeto->setNombreObjeto($nombre_objeto);

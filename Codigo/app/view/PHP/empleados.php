@@ -125,11 +125,10 @@ if (isset($_SESSION['peluqueria'])) {
            <?php } ?>
            
 
- 
+ <a href="negocio.php">
+    <?php include "botonAtras.php" ?>
+</a>
             
-
-    
-
 
 </body>
 

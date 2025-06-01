@@ -64,11 +64,12 @@ $objetos = $objetos->getObjetosByPeluqueria($peluqueria);
             if ($objetos) {
                 foreach ($objetos as $objeto) { ?>
                     <div class="formProducto">
-                        <form action="productodetalle.php" method="GET">
+                        <form action="" method="GET">
                             <div class="divProduc" onclick="this.closest('form').submit()">
                                 <input type="hidden" name="id" value="<?= htmlspecialchars($objeto['id_objeto']) ?>">
                                 <img class="imgProducto" src="<?= htmlspecialchars($objeto['imagen']) ?>" alt="">
                                 <h3 id="nombre"><?= htmlspecialchars($objeto['nombre_objeto']) ?></h3>
+                                <h2 id="precio"><?= htmlspecialchars($objeto['precio']) ?>€</h2>
                             </div>
                         </form>
 
@@ -94,6 +95,10 @@ $objetos = $objetos->getObjetosByPeluqueria($peluqueria);
             <?php } ?>
         </div>
     </div>
+
+    <a href="negocio.php">
+    <?php include "botonAtras.php" ?>
+    </a>
 
 </body>
 </html>

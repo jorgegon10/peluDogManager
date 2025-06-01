@@ -86,10 +86,10 @@ class Compra
     {
         try {
             $conn = getDBConnection();
-            $sentencia = $conn->prepare("INSERT INTO compra (nombre_compra, formaPago, precio_compra, fecha_compra, peluqueria) VALUES (?, ?, ?, ?, ?)");
+            $sentencia = $conn->prepare("INSERT INTO compra (nombre_compra,precio_compra, peluqueria) VALUES (?, ?, ?)");
             $sentencia->bindParam(1, $this->nombre_compra);
-            $sentencia->bindParam(3, $this->precio_compra);
-            $sentencia->bindParam(5, $this->peluqueria);
+            $sentencia->bindParam(2, $this->precio_compra);
+            $sentencia->bindParam(3, $this->peluqueria);
             $sentencia->execute();
         } catch (PDOException $e) {
             echo "Error al crear la compra: " . $e->getMessage();

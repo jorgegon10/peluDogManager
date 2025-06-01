@@ -2,14 +2,14 @@
 require_once(__DIR__ . '/../../rutas.php'); 
 require_once(CONFIG . 'dbConnection.php'); // ruta de config definido en rutas.php
 
-class CajaController {
+class CompraController {
     public function getAllCompras() {
         return Compra::getAllCompras();
     }
     public function getComprasByPeluqueria($peluqueria) {
         return Compra::getComprasByPeluqueria($peluqueria);
     }
-    public function crearCompra($nombre_compra, $formaPago, $precio_compra, $peluqueria) {
+    public function crearCompra($nombre_compra, $precio_compra, $peluqueria) {
         $nuevaCompra = new Compra();
         $nuevaCompra->setNombreCompra($nombre_compra);
         $nuevaCompra->setPrecioCompra($precio_compra);

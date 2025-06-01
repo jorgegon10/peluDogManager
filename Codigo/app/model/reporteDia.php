@@ -134,4 +134,21 @@ class ReporteDia{
         }
     }   
 
+    public static function update($id_reporte, $num_compras, $total_compras, $fecha_compras, $peluqueria)
+    {
+        try {
+            $conn = getDBConnection();
+            $sentencia = $conn->prepare("UPDATE reporteDia SET num_compras = ?, total_compras = ?, fecha_compras = ?, peluqueria = ? WHERE id_reporte = ?");
+            $sentencia->bindParam(1, $num_compras);
+            $sentencia->bindParam(2, $total_compras);
+            $sentencia->bindParam(3, $fecha_compras);
+            $sentencia->bindParam(4, $peluqueria);
+            $sentencia->bindParam(5, $id_reporte);
+            return $sentencia->execute();
+        } catch (PDOException $e) {
+            echo "Error al actualizar el reporte: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }

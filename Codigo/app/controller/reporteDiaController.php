@@ -33,6 +33,51 @@ class ReporteDiaController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
+    public function getReporteByPeluqueriaAndFecha($peluqueria, $fecha) {
+        $conn = getDBConnection();
+        $sql = "SELECT * FROM reporteDia WHERE peluqueria = :peluqueria AND fecha_compras = :fecha";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':peluqueria', $peluqueria);
+        $stmt->bindParam(':fecha', $fecha);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function update($id_reporte, $num_compras, $total_compras, $fecha_compras, $peluqueria) {
+    return ReporteDia::update($id_reporte, $num_compras, $total_compras, $fecha_compras, $peluqueria);
+}
+
+
+public function getTotalComprasPorDia($peluqueria) {
+    $reportes = ReporteDia::getReporteByPeluqueria($peluqueria);
+    $data = [];
+
+    foreach ($reportes as $reporte) {
+        $fecha = $reporte['fecha_compras'];
+        if (!isset($data[$fecha])) {
+            $data[$fecha] = 0;
+        }
+        $data[$fecha] += $reporte['num_compras'];
+    }
+    ksort($data);
+    return $data;
+}
+
+public function getTotalDineroPorDia($peluqueria) {
+    $reportes = ReporteDia::getReporteByPeluqueria($peluqueria);
+    $data = [];
+
+    foreach ($reportes as $reporte) {
+        $fecha = $reporte['fecha_compras'];
+        if (!isset($data[$fecha])) {
+            $data[$fecha] = 0;
+        }
+        $data[$fecha] += $reporte['total_compras'];
+    }
+    ksort($data);
+    return $data;
+}
+
+
+
 
 }

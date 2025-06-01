@@ -13,45 +13,63 @@ $usuarioController = new UsuarioController();
 session_start();
 
 if (isset($_SESSION['nombre_usuario'])) {
-
     $nombre_usuario = $_SESSION['nombre_usuario'];
 } else {
-
     $nombre_usuario = null;
 }
 
-//Esta linea da problemas(comentada por si acaso)
-// $nombre_usuario = $_SESSION['nombre_usuario']; 
-
-
 $usuario = $usuarioController->getUserByName($nombre_usuario);
 
-// // Usamos $_GET para obtener el ID del producto
- if (isset($_GET['id'])) {
-    
-     $id_producto = $_GET['id'];
+// Obtenemos el ID del producto vía GET o POST
+if (isset($_GET['id'])) {
+    $id_producto = $_GET['id'];
 } else {
-   $id_producto = $_POST["id_producto"];
-    // echo "Producto no encontrado.";
-    // exit;
+    $id_producto = $_POST["id_producto"] ?? null;
 }
 
-  
+if (!$id_producto) {
+    echo "Producto no encontrado.";
+    exit;
+}
 
+// Procesamos el formulario sólo si viene por POST
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['formUpdate']) && $_POST['formUpdate'] == 'formulario') {
+    if (!empty($id_producto) && is_numeric($id_producto)) {
+        $updated = false;
 
+        // Modificar nombre si viene
+        if (!empty($_POST["nombre_perro"])) {
+            $nuevoNombrePerro = htmlspecialchars($_POST["nombre_perro"]);
+            $productController->modificarNombreProducto($id_producto, $nuevoNombrePerro);
+            $updated = true;
+        }
 
+        // Modificar descripción si viene
+        if (!empty($_POST["nuevaDescripcion"])) {
+            $nuevaDescripcion = htmlspecialchars($_POST["nuevaDescripcion"]);
+            $productController->modificarDescripcion($id_producto, $nuevaDescripcion);
+            $updated = true;
+        }
+
+        if ($updated) {
+            // Redirigir para evitar reenvío del formulario al refrescar
+            header("Location: productoDetalle.php?id=$id_producto");
+            exit();
+        }
+    } else {
+        echo "Error: ID de producto no válido.";
+        exit;
+    }
+}
+
+// Cargamos los datos del producto (para mostrar en el formulario)
 $perro = $productController->getProductsById($id_producto);
-
-
 
 if (!$perro) {
     echo "Producto no encontrado.";
     exit;
 }
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -67,8 +85,6 @@ if (!$perro) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 
-
-
 <body>
     <?php include "../Generales/nav.php" ?>
 
@@ -76,144 +92,71 @@ if (!$perro) {
         <div class="detalleProducto">
             <div class="imagenProducto">
                 <img src="<?= htmlspecialchars($perro['imagen']) ?>" alt="Imagen del producto" >
-                
             </div>
-            
+
             <div class="infoProducto">
 
                 <form id="formulario" method="POST">
                     <input type="hidden" name="formUpdate" value="formulario">
                     <input type="hidden" name="id_producto" value="<?= htmlspecialchars($perro['id_producto']) ?>">
 
-                        <div style="display: flex; gap:5%">
-                            <div>
-                                 <label for="nombre_perro">Nombre:</label>
-                                 <input type="text" id="nombre_perro" name="nombre_perro" class="form-control mb-3" 
+                    <div style="display: flex; gap:5%">
+                        <div>
+                            <label for="nombre_perro">Nombre:</label>
+                            <input type="text" id="nombre_perro" name="nombre_perro" class="form-control mb-3" 
                                 value="<?= htmlspecialchars($perro['nombre_perro']) ?>" readonly>
-                            </div>
-                           <div>
-                                <label for="raza">Raza:</label>
-                                <input type="text" id="raza" name="raza"  class="form-control mb-3" 
+                        </div>
+                        <div>
+                            <label for="raza">Raza:</label>
+                            <input type="text" id="raza" name="raza"  class="form-control mb-3" 
                                 value="<?= htmlspecialchars($perro['raza']) ?>" readonly>
-                           </div>
-                            
                         </div>
-                    
-                        <div style="display: flex; gap:5%">
-                            <div>
-                                <label for="precio">Precio:</label>
-                                <input type="text" id="precio" name="precio"  class="form-control mb-3" 
+                    </div>
+
+                    <div style="display: flex; gap:5%">
+                        <div>
+                            <label for="precio">Precio:</label>
+                            <input type="text" id="precio" name="precio"  class="form-control mb-3" 
                                 value="<?= htmlspecialchars($perro['precio']) ?>€" readonly>
-                            </div>
-                            <div>
-                                <label for="telefono">Telefono:</label>
-                                <input type="text" id="telefono" name="telefono"   class="form-control mb-3" 
-                                value="<?= htmlspecialchars($perro['telefono']) ?>" readonly>
-                            </div>
-
-                            
-
                         </div>
+                        <div>
+                            <label for="telefono">Telefono:</label>
+                            <input type="text" id="telefono" name="telefono"   class="form-control mb-3" 
+                                value="<?= htmlspecialchars($perro['telefono']) ?>" readonly>
+                        </div>
+                    </div>
 
-                        
-                        <label for="descripcion" style="display: block;">Observaciones:</label>
-                        <textarea id="descripcion" name="descripcion"  class="form-control mb-3" readonly><?= htmlspecialchars($perro['descripcion']) ?></textarea>
+                    <label for="descripcion" style="display: block;">Observaciones:</label>
+                    <textarea id="descripcion" name="descripcion"  class="form-control mb-3" readonly><?= htmlspecialchars($perro['descripcion']) ?></textarea>
 
-                        <textarea id="nuevaDescripcion" name="nuevaDescripcion"  class="form-control mb-3" style="display: none;" placeholder="Añade observción..."></textarea>
+                    <textarea id="nuevaDescripcion" name="nuevaDescripcion"  class="form-control mb-3" style="display: none;" placeholder="Añade observción..."></textarea>
 
-                        
-
-                        <button type="button" id="editar">Editar</button>
-                        <button type="submit" id="guardar" style="display: none;">Guardar</button>
-                    
-
-                    
+                    <button type="button" id="editar">Editar</button>
+                    <button type="submit" id="guardar" style="display: none;">Guardar</button>
                 </form>
-
-
 
                 <script>
                     document.getElementById('editar').addEventListener('click', function () {
-                        // Habilitar los campos
+                        // Habilitar los campos editables
                         document.getElementById('nombre_perro').removeAttribute('readonly');
                         document.getElementById('precio').removeAttribute('readonly');
-                        // document.getElementById('descripcion').removeAttribute('readonly');
+                        // document.getElementById('descripcion').removeAttribute('readonly'); // lo dejas comentado, ok
                         document.getElementById('raza').removeAttribute('readonly');
                         document.getElementById('nuevaDescripcion').style.display="block";
 
-                        // Mostrar el botón de guardar y ocultar el de editar
+                        // Mostrar botón guardar y ocultar editar
                         document.getElementById('guardar').style.display = 'inline-block';
                         this.style.display = 'none';
-                        
                     });
-
-
                 </script>
 
-        
             </div>
         </div>
     </div>
-   
-   
-    
 
-<?php
-     
-     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['formUpdate']) && $_POST['formUpdate'] == 'formulario') {
-        $id_producto = $_POST["id_producto"];
-    
-        if (!empty($id_producto) && is_numeric($id_producto)) {
-            if (!empty($_POST["nombre_perro"])) {
-                $nuevoNombrePerro = htmlspecialchars($_POST["nombre_perro"]);
-                $productController->modificarNombreProducto($id_producto, $nuevoNombrePerro);
-               // Recargar el producto actualizado después de la modificación
-            $perro = $productController->getProductsById($id_producto);
-
-            if (!empty($_POST["nuevaDescripcion"])) {
-                $nuevaDescripcion = htmlspecialchars($_POST["nuevaDescripcion"]);
-                $productController->modificarDescripcion($id_producto, $nuevaDescripcion);
-               // Recargar el producto actualizado después de la modificación
-            $perro = $productController->getProductsById($id_producto);
-
-            
-            // Redirigir a la misma página para reflejar el cambio
-            header("Location: productoDetalle.php?id=$id_producto");
-            exit();
-
-            }
-            
-            
-            }
-
-                    
-
-        } else {
-            echo "Error: ID de producto no válido.";
-        }
-
-
-
-            
-          
-       
-    }
-
-    if (isset($_GET['id'])) {
-        $id_producto = $_GET['id'];
-        $perro = $productController->getProductsById($id_producto);
-        if (!$perro) {
-            echo "Producto no encontrado.";
-            exit;
-        }
-    }
-
-    
-    
-    
-
-
-    ?>
+    <a href="listaPerros.php">
+    <?php include "botonAtras.php" ?>
+</a>
 
 </body>
 

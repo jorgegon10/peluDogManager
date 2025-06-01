@@ -53,5 +53,11 @@
             </div>
         </div>
     </div>
+
+    <a href="opcionesCaja.php">
+    <?php include "botonAtras.php" ?>
+    </a>
+
+
 </body>
 </html>
