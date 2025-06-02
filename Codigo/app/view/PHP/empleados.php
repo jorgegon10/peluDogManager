@@ -56,7 +56,7 @@ if (isset($_SESSION['peluqueria'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empleados</title>
-    <link rel="stylesheet" href="../CSS/listaProductos.css">
+    <link rel="stylesheet" href="../CSS/empleados.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -67,39 +67,25 @@ if (isset($_SESSION['peluqueria'])) {
 
     <?php include "../Generales/nav.php" ?>
 
-    <!-- Elimina style="display: none;" si no es necesario -->
-<a href="añadirEmpleado.php" id="añadir" class="btn" display="none">
+    
+<!-- <a href="añadirEmpleado.php" id="añadir" class="btn" display="none">
     <i class="fas fa-user-plus"></i>
     Añadir Empleado
-</a>
+</a> -->
 
-    
-
-    <!-- Formulario de búsqueda de productos -->
-    <form method="GET" action="" class="busqueda-form">
-        <input type="text" PLACEHOLDER="Buscar un producto..." name="busqueda"
-            value="<?php if (isset($busqueda)) echo htmlspecialchars($busqueda); ?>"
-            class="busqueda-input">
-    </form>
-
-    <!-- Productos filtrados por deporte o búsqueda -->
     <div class="contProductos">
         <div class="productos">
             <?php
             if ($usuarios) {
                 foreach ($usuarios as $usuario) { ?>
-                    <form class="formProducto" action="empleadoDetalle.php" method="GET">
+                    <form class="formProducto" action="" method="GET">
                         <div class="divProduc" onclick="this.closest('form').submit()">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($usuario['id_usuario']) ?>">
                             <img class="imgProducto" src="<?= htmlspecialchars($usuario['imagen']) ?>" alt="">
                             <input type="hidden" name="nombre_usuario" value="<?= htmlspecialchars($usuario['nombre_usuario']) ?>">
                             <h3 id="nombre"><?= htmlspecialchars($usuario['nombre_usuario']) ?></h3>
                             <p><?= htmlspecialchars($usuario['puesto']) ?></p>
-
-                            
-
-                
-                        
+       
                         </div>
                     </form>
                 <?php }
@@ -128,6 +114,8 @@ if (isset($_SESSION['peluqueria'])) {
  <a href="negocio.php">
     <?php include "botonAtras.php" ?>
 </a>
+
+<a href="añadirEmpleado.php" class="boton-flotante" id="añadir" display="none">+</a>
             
 
 </body>

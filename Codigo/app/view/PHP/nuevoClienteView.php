@@ -6,9 +6,10 @@ require_once(MODEL . 'Producto.php');
 session_start();
 $nombre_usuario = $_SESSION['nombre_usuario'] ?? null;
 
-$mensaje = "";
+$mensaje = $_SESSION['mensaje'] ?? "";
+unset($_SESSION['mensaje']); // eliminar mensaje después de mostrarlo
 
-// Inicializar variables para mantener valores tras errores
+// Inicializar variables
 $nombrePerro = $descripcion = $peluqueria = $visitas = $precio = $imagen = $telefono = $raza = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,29 +22,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefono = $_POST['telefono'] ?? '';
     $raza = $_POST['raza'] ?? '';
 
+    if (empty($imagen)) {
+        $imagen = '/ProyectoFinal/Codigo/app/view/Img/dog.webp';
+    }
+
     if (!preg_match('/^\d{9}$/', $telefono)) {
-        $mensaje = "❌ El número de teléfono debe tener exactamente 9 dígitos.";
+        $_SESSION['mensaje'] = "❌ El número de teléfono debe tener exactamente 9 dígitos.";
     } elseif (
         $nombrePerro && $descripcion && $peluqueria &&
         is_numeric($visitas) && is_numeric($precio) &&
         $imagen && $telefono && $raza
     ) {
         try {
-            // Añadir fecha al final de la descripción con salto de línea
             $fecha = date('d/m/Y');
             $descripcionConFecha = $descripcion . "\n" . "[$fecha]";
 
             $controller = new ProductoController();
             $controller->crearProducto($nombrePerro, $precio, $descripcionConFecha, $peluqueria, $visitas, $imagen, $telefono, $raza);
-            $mensaje = "✅ Perro añadido con éxito.";
-            // Limpiar campos tras éxito
-            $nombrePerro = $descripcion = $visitas = $precio = $imagen = $telefono = $raza = "";
+
+            $_SESSION['mensaje'] = "✅ Perro añadido con éxito.";
         } catch (Exception $e) {
-            $mensaje = "❌ Error al crear el producto: " . $e->getMessage();
+            $_SESSION['mensaje'] = "❌ Error al crear el producto: " . $e->getMessage();
         }
     } else {
-        $mensaje = "❌ Por favor, completa todos los campos correctamente.";
+        $_SESSION['mensaje'] = "❌ Por favor, completa todos los campos correctamente.";
     }
+
+    // 🔁 Redirigir tras procesar POST
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
 }
 ?>
 
@@ -119,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <textarea name="descripcion" placeholder="Descripción" required><?= htmlspecialchars($descripcion) ?></textarea>
         <input type="text" name="peluqueria" value="<?= htmlspecialchars($_SESSION['peluqueria'] ?? '') ?>" readonly>
         <input type="number" name="visitas" placeholder="Visitas" value="<?= htmlspecialchars($visitas) ?>" required>
-        <input type="text" name="imagen" placeholder="Imagen (URL o nombre archivo)" value="<?= htmlspecialchars($imagen) ?>" required>
+        <input type="text" name="imagen" placeholder="Imagen (URL o nombre archivo)" value="<?= htmlspecialchars($imagen) ?>" >
         <input type="text" name="telefono" placeholder="Teléfono (9 dígitos)" value="<?= htmlspecialchars($telefono) ?>" required>
         <input type="text" name="raza" placeholder="Raza" value="<?= htmlspecialchars($raza) ?>" required>
         <button type="submit">Agregar Perro</button>

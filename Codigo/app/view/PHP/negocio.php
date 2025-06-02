@@ -59,12 +59,7 @@ $_SESSION['peluqueria'] = $peluqueria;
                 Clientes
                 </button>
             </form>
-            <form action="calendario.php" method="GET">
-                <button class="btn" type="submit">
-                    <i class="fas fa-calendar-alt"></i>
-                    Calendario
-                </button>
-            </form>
+           
             
             <form action="inventarioView.php" method="GET">
                 <button class="btn" type="submit">
@@ -73,12 +68,12 @@ $_SESSION['peluqueria'] = $peluqueria;
                 </button>
             </form>
             
-            <form action="nuevoClienteView.php" method="GET">
+            <!-- <form action="nuevoClienteView.php" method="GET">
                 <button class="btn" type="submit">
                 <i class="fas fa-user-plus"></i>
                 Nuevo Cliente
                 </button>
-            </form>
+            </form> -->
 
             <form action="empleados.php" method="GET">
                 <button class="btn" type="submit">
@@ -94,13 +89,18 @@ $_SESSION['peluqueria'] = $peluqueria;
                 </button>
             </form>
             
-           <form action="añadirInventario.php" method="GET">
+           <!-- <form action="añadirInventario.php" method="GET">
                 <button class="btn" type="submit">
                     <i class="fas fa-plus"></i>
                     Añadir Inventario
                 </button>
+            </form> -->
+             <form action="calendario.php" method="GET">
+                <button class="btn" type="submit">
+                    <i class="fas fa-calendar-alt"></i>
+                    Calendario
+                </button>
             </form>
-            
 
 
             

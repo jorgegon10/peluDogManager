@@ -38,7 +38,7 @@ if (isset($_SESSION['peluqueria'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Producto</title>
+    <title>Clientes</title>
     <link rel="stylesheet" href="../CSS/listaProductos.css">
 </head>
 
@@ -58,9 +58,9 @@ if (isset($_SESSION['peluqueria'])) {
                         <div class="divProduc" onclick="this.closest('form').submit()">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($producto['id_producto']) ?>">
                             <img class="imgProducto" src="<?= htmlspecialchars($producto['imagen']) ?>" alt="">
-                            <h3 id="likes"><?= htmlspecialchars($producto['likes']) . " &#x2764;" ?></h3>
                             <h3 id="nombre"><?= htmlspecialchars($producto['nombre_perro']) ?></h3>
-                            <p id="precio"><?= htmlspecialchars($producto['precio']) ?>€</p>
+                            <p id="raza"><?= htmlspecialchars($producto['raza']) ?></p>
+                            <h4 id="precio"><?= htmlspecialchars($producto['precio']) ?>€</h4>
                         </div>
                     </form>
                 <?php }

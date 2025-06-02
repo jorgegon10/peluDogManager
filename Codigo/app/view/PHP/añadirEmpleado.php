@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $activo = isset($_POST['activo']) ? 1 : 0;
     $imagen = $_POST['imagen'] ?? '';
 
-    // Establecer imagen por defecto si no se proporciona
+    // enc caso de que no se ponga imagen asigno una por defeco 
     if (empty($imagen)) {
         $imagen = '/ProyectoFinal/Codigo/app/view/Img/user.png';
     }

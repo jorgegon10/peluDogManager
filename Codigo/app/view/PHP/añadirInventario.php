@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </div>
 
-<a href="negocio.php">
+<a href="inventarioView.php">
         <?php include "botonAtras.php" ?>
 </a>
 

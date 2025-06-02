@@ -2,103 +2,76 @@
 require_once(__DIR__ . '/../../../rutas.php');
 require_once(CONTROLLER . 'ObjetoController.php');
 require_once(MODEL . 'Objeto.php');
+
 $objetos = new Objeto();
 session_start();
 
-if (isset($_SESSION['nombre_usuario'])) {
-    $nombre_usuario = $_SESSION['nombre_usuario'];
-} else {
-    $nombre_usuario = null;
-}
-
-if (isset($_SESSION['peluqueria'])) {
-    $peluqueria = $_SESSION['peluqueria'];
-} else {
-    $peluqueria = null;
-}
+$nombre_usuario = $_SESSION['nombre_usuario'] ?? null;
+$peluqueria = $_SESSION['peluqueria'] ?? null;
 
 $objetos = $objetos->getObjetosByPeluqueria($peluqueria);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Producto</title>
-    <link rel="stylesheet" href="../CSS/listaProductos.css">
-    <style>
-        .cantidad-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 8px;
-        }
-        .cantidad-control form {
-            display: inline;
-        }
-        .cantidad-control button {
-            padding: 5px 10px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .cantidad-control span {
-            font-weight: bold;
-        }
-    </style>
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="../CSS/inventarioView.css">
+    
 </head>
 
 <body>
 
-    <?php include "../Generales/nav.php" ?>
+<?php include "../Generales/nav.php" ?>
 
-    <form method="GET" action="" class="busqueda-form">
-        <input type="text" placeholder="Buscar un producto..." name="busqueda"
-            value="<?php if (isset($busqueda)) echo htmlspecialchars($busqueda); ?>"
-            class="busqueda-input">
-    </form>
+<form method="GET" class="busqueda-form">
+    <input type="text" placeholder="Buscar un producto..." name="busqueda"
+        value="<?= isset($busqueda) ? htmlspecialchars($busqueda) : '' ?>"
+        class="busqueda-input">
+</form>
 
-    <div class="contProductos">
-        <div class="productos">
-            <?php
-            if ($objetos) {
-                foreach ($objetos as $objeto) { ?>
-                    <div class="formProducto">
-                        <form action="" method="GET">
-                            <div class="divProduc" onclick="this.closest('form').submit()">
-                                <input type="hidden" name="id" value="<?= htmlspecialchars($objeto['id_objeto']) ?>">
-                                <img class="imgProducto" src="<?= htmlspecialchars($objeto['imagen']) ?>" alt="">
-                                <h3 id="nombre"><?= htmlspecialchars($objeto['nombre_objeto']) ?></h3>
-                                <h2 id="precio"><?= htmlspecialchars($objeto['precio']) ?>€</h2>
-                            </div>
+<div class="contProductos">
+    <div class="productos">
+        <?php if ($objetos): ?>
+            <?php foreach ($objetos as $objeto): ?>
+                <div class="formProducto">
+                    <!-- Producto clickable (GET al hacer clic) -->
+                    <div class="divProduc" onclick="document.location.href='?id=<?= $objeto['id_objeto'] ?>'">
+                        <img class="imgProducto" src="<?= htmlspecialchars($objeto['imagen']) ?>" alt="">
+                        <h3><?= htmlspecialchars($objeto['nombre_objeto']) ?></h3>
+                        <h2><?= htmlspecialchars($objeto['precio']) ?>€</h2>
+                    </div>
+
+                    <!-- Controles de cantidad (POST independientes) -->
+                    <div class="cantidad-control">
+                        <form method="POST" action="actualizarCantidad.php">
+                            <input type="hidden" name="id_objeto" value="<?= $objeto['id_objeto'] ?>">
+                            <input type="hidden" name="accion" value="restar">
+                            <button class="modCantidad" type="submit">−</button>
                         </form>
 
-                        <div class="cantidad-control ">
-                            <form method="POST" action="actualizarCantidad.php">
-                                <input type="hidden" name="id_objeto" value="<?= htmlspecialchars($objeto['id_objeto']) ?>">
-                                <input type="hidden" name="accion" value="restar">
-                                <button type="submit">−</button>
-                            </form>
+                        <span><?= htmlspecialchars($objeto['cantidad']) ?></span>
 
-                            <span><?= htmlspecialchars($objeto['cantidad']) ?></span>
-
-                            <form method="POST" action="actualizarCantidad.php">
-                                <input type="hidden" name="id_objeto" value="<?= htmlspecialchars($objeto['id_objeto']) ?>">
-                                <input type="hidden" name="accion" value="sumar">
-                                <button type="submit">+</button>
-                            </form>
-                        </div>
+                        <form method="POST" action="actualizarCantidad.php">
+                            <input type="hidden" name="id_objeto" value="<?= $objeto['id_objeto'] ?>">
+                            <input type="hidden" name="accion" value="sumar">
+                            <button class="modCantidad" type="submit">+</button>
+                        </form>
                     </div>
-                <?php }
-            } else { ?>
-                <p>No se han encontrado productos.</p>
-            <?php } ?>
-        </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No se han encontrado productos.</p>
+        <?php endif; ?>
     </div>
+</div>
 
-    <a href="negocio.php">
+<a href="negocio.php">
     <?php include "botonAtras.php" ?>
-    </a>
+</a>
+
+<a href="añadirInventario.php" class="boton-flotante">+</a>
 
 </body>
 </html>
