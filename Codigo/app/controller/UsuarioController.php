@@ -41,7 +41,15 @@ class UsuarioController {
         $nuevoUsuario->setAdministrador($administrador);
         $nuevoUsuario->setActivo($activo);
 
-        $nuevoUsuario->create();
+        try {
+            // Intentar crear el usuario
+            $nuevoUsuario->create();
+            return true; // Retornar true si la creación fue exitosa
+        } catch (Exception $e) {
+            // Manejar la excepción si ocurre un error al crear el usuario
+            throw new Exception("Error al crear el usuario: " . $e->getMessage());
+        }
+       
     }
 
     public function modificarUsuario($nombre_usuario, $correo, $nombre, $apellido1, $apellido2, $contraseña, $direccion , $peluqueria, $puesto, $administrador, $activo) {

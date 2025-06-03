@@ -246,7 +246,7 @@ class Usuario
         $sentencia->bindParam(11, $this->administrador);
         $sentencia->bindParam(12, $this->activo);
 
-        $sentencia->execute();
+        return $sentencia->execute();
     } catch (PDOException $e) {
         echo "Error en la conexión a base de datos: " . $e->getMessage();
     }
